@@ -16,7 +16,7 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      # Step 1: Checkout code from selected branch
+      # Step 1: Checkout code from the selected branch
       - name: Checkout code
         uses: actions/checkout@v3
         with:
@@ -29,14 +29,24 @@ jobs:
           chmod +x /usr/local/bin/argocd
           argocd version
 
-      # Step 3: Sync the ArgoCD application
+      # Step 3: ArgoCD Sync
       - name: ArgoCD Sync
         env:
-          ARGOCD_SERVER: 3.108.52.133:30659
+          ARGOCD_SERVER: ${{ secrets.ARGOCD_SERVER }}
           ARGOCD_AUTH_TOKEN: ${{ secrets.ARGOCD_AUTH_TOKEN }}
         run: |
+          # Fail early if secrets are missing
+          if [ -z "$ARGOCD_SERVER" ] || [ -z "$ARGOCD_AUTH_TOKEN" ]; then
+            echo "ERROR: ARGOCD_SERVER or ARGOCD_AUTH_TOKEN not set"
+            exit 1
+          fi
+
           echo "Deploying branch '${{ github.event.inputs.branch }}' to environment '${{ github.event.inputs.environment }}'"
+
+          # Trigger ArgoCD app sync
           argocd app sync hello-world \
             --server $ARGOCD_SERVER \
             --auth-token $ARGOCD_AUTH_TOKEN \
-            --prune
+            --prune \
+            --wait \
+            --insecure
