@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: hello-world
-        image: rahsnh/hello-world:b0c3626
+        image: rahsnh/hello-world:b3ff89b
         env:
         - name: COMMIT_SHA
           value: "initial"
