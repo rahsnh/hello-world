@@ -10,6 +10,10 @@ on:
         description: 'Environment to deploy'
         required: true
         default: 'staging'
+      run_deploy:
+        description: 'Deploy after build?'
+        required: true
+        default: 'true'
 
 jobs:
   test-and-build:
@@ -66,7 +70,8 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     needs: test-and-build
-    if: github.event_name == 'workflow_dispatch' # only run on manual trigger
+    # Run only if manually triggered AND run_deploy is true
+    if: github.event_name == 'workflow_dispatch' && github.event.inputs.run_deploy == 'true'
     steps:
       # Step 1: Checkout code
       - name: Checkout code
