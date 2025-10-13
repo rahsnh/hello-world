@@ -39,5 +39,4 @@ jobs:
           argocd app sync hello-world \
             --server $ARGOCD_SERVER \
             --auth-token $ARGOCD_AUTH_TOKEN \
-            --prune \
-            --wait
+            --prune
