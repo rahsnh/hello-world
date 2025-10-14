@@ -18,3 +18,5 @@ spec:
     service:
       type: NodePort
       nodePort: 30000
+    podSecurityPolicy:
+      enabled: false
