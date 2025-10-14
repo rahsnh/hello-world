@@ -1,0 +1,21 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: loki
+  namespace: monitoring
+spec:
+  chart:
+    spec:
+      chart: loki
+      sourceRef:
+        kind: HelmRepository
+        name: grafana
+      version: "2.10.0"
+  values:
+    persistence:
+      enabled: true
+      size: 1Gi
+    config:
+      table_manager:
+        retention_deletes_enabled: true
+        retention_period: 1d
