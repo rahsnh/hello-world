@@ -26,11 +26,15 @@ spec:
         enabled: false
       resources:
         requests:
+          memory: "128Mi"
+          cpu: "100m"
+        limits:
           memory: "256Mi"
           cpu: "250m"
-        limits:
-          memory: "512Mi"
-          cpu: "500m"
+      tolerations:
+        - key: "node-role.kubernetes.io/control-plane"
+          operator: "Exists"
+          effect: "NoSchedule"
     podSecurityPolicy:
       enabled: false
     rbac:
