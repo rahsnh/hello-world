@@ -14,14 +14,18 @@ spec:
       version: "6.42.0"
   values:
     deploymentMode: SingleBinary
+    backend:
+      replicas: 0
+    read:
+      replicas: 0
+    write:
+      replicas: 0
     singleBinary:
       replicas: 1
       persistence:
         enabled: true
         size: 1Gi
         storageClass: ""
-      extraArgs:
-        - -config.expand-env=true
     podSecurityPolicy:
       enabled: false
     rbac:
@@ -35,11 +39,11 @@ spec:
           http_listen_port: 3100
         common:
           path_prefix: /var/loki
+          replication_factor: 1
           storage:
             filesystem:
               chunks_directory: /var/loki/chunks
               rules_directory: /var/loki/rules
-          replication_factor: 1
         ruler:
           storage:
             type: local
