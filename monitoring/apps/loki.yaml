@@ -13,18 +13,18 @@ spec:
         name: grafana
       version: "6.42.0"
   values:
-    persistence:
-      enabled: true
-      size: 1Gi
-    config:
-      table_manager:
-        retention_deletes_enabled: true
-        retention_period: 1d
     podSecurityPolicy:
       enabled: false
     rbac:
       create: true
+    persistence:
+      enabled: true
+      size: 1Gi
     loki:
+      auth_enabled: false
       storage:
         type: filesystem
-      auth_enabled: false
+      config:
+        table_manager:
+          retention_deletes_enabled: true
+          retention_period: 1d
