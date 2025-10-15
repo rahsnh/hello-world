@@ -13,7 +13,7 @@ spec:
         name: grafana
       version: "6.42.0"
   values:
-    deploymentMode: Standalone
+    deploymentMode: SingleBinary
     singleBinary:
       replicas: 1
       persistence:
