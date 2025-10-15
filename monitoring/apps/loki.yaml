@@ -23,9 +23,7 @@ spec:
     singleBinary:
       replicas: 1
       persistence:
-        enabled: true
-        size: 1Gi
-        storageClass: ""
+        enabled: false
     podSecurityPolicy:
       enabled: false
     rbac:
