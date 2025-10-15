@@ -35,6 +35,9 @@ spec:
         - key: "node-role.kubernetes.io/control-plane"
           operator: "Exists"
           effect: "NoSchedule"
+        - key: "node.kubernetes.io/disk-pressure"
+          operator: "Exists"
+          effect: "NoSchedule"
       chunksCache:
         enabled: false
       resultsCache:
@@ -48,6 +51,8 @@ spec:
       compactor:
         enabled: false
       distributor:
+        enabled: false
+      gateway:
         enabled: false
     podSecurityPolicy:
       enabled: false
