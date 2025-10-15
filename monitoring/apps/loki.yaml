@@ -32,6 +32,7 @@ spec:
       create: true
     loki:
       auth_enabled: false
+      useTestSchema: true
       storage:
         type: filesystem
       config: |
