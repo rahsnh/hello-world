@@ -22,3 +22,9 @@ spec:
         retention_period: 1d
     podSecurityPolicy:
       enabled: false
+    rbac:
+      create: true
+    loki:
+      storage:
+        type: filesystem
+      auth_enabled: false
