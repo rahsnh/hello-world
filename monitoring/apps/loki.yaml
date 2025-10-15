@@ -13,13 +13,7 @@ spec:
         name: grafana
       version: "6.42.0"
   values:
-    deploymentMode: SingleBinary
-    backend:
-      replicas: 0
-    read:
-      replicas: 0
-    write:
-      replicas: 0
+    deploymentMode: Standalone
     singleBinary:
       replicas: 1
       persistence:
@@ -48,6 +42,12 @@ spec:
         enabled: false
       gateway:
         enabled: false
+    backend:
+      replicas: 0
+    read:
+      replicas: 0
+    write:
+      replicas: 0
     podSecurityPolicy:
       enabled: false
     rbac:
