@@ -14,13 +14,18 @@ spec:
       version: "6.42.0"
   values:
     deploymentMode: SingleBinary
+    singleBinary:
+      replicas: 1
+      persistence:
+        enabled: true
+        size: 1Gi
+        storageClass: ""
+      extraArgs:
+        - -config.expand-env=true
     podSecurityPolicy:
       enabled: false
     rbac:
       create: true
-    persistence:
-      enabled: true
-      size: 1Gi
     loki:
       auth_enabled: false
       storage:
