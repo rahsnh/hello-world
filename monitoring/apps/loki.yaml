@@ -31,10 +31,6 @@ spec:
         limits:
           memory: "256Mi"
           cpu: "250m"
-      tolerations:
-        - key: "node-role.kubernetes.io/control-plane"
-          operator: "Exists"
-          effect: "NoSchedule"
       chunksCache:
         enabled: false
       resultsCache:
