@@ -20,10 +20,6 @@ loki:
       cpu: 500m
       memory: 512Mi
   podAntiAffinity: "soft"
-  tolerations:
-    - key: "node-role.kubernetes.io/control-plane"
-      operator: "Exists"
-      effect: "NoSchedule"
 
 # ============================================================
 # Promtail - Log collector
@@ -39,10 +35,6 @@ promtail:
     limits:
       cpu: 100m
       memory: 128Mi
-  tolerations:
-    - key: "node-role.kubernetes.io/control-plane"
-      operator: "Exists"
-      effect: "NoSchedule"
 
 # ============================================================
 # Disable heavy Loki components (for small cluster)
