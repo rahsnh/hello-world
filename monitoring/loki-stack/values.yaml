@@ -1,0 +1,73 @@
+# ============================================================
+# Loki Stack (Lightweight Non-Persistent Setup)
+# Suitable for small EC2-based Kubernetes clusters
+# ============================================================
+
+loki:
+  enabled: true
+  auth_enabled: false
+  commonConfig:
+    replication_factor: 1
+  storage:
+    type: filesystem
+  persistence:
+    enabled: false  # ✅ Disabled persistence (ephemeral)
+  resources:
+    requests:
+      cpu: 100m
+      memory: 256Mi
+    limits:
+      cpu: 500m
+      memory: 512Mi
+  podAntiAffinity: "soft"
+  tolerations:
+    - key: "node-role.kubernetes.io/control-plane"
+      operator: "Exists"
+      effect: "NoSchedule"
+
+# ============================================================
+# Promtail - Log collector
+# ============================================================
+promtail:
+  enabled: true
+  serviceMonitor:
+    enabled: false
+  resources:
+    requests:
+      cpu: 50m
+      memory: 64Mi
+    limits:
+      cpu: 100m
+      memory: 128Mi
+  tolerations:
+    - key: "node-role.kubernetes.io/control-plane"
+      operator: "Exists"
+      effect: "NoSchedule"
+
+# ============================================================
+# Disable heavy Loki components (for small cluster)
+# ============================================================
+chunksCache:
+  enabled: false
+resultsCache:
+  enabled: false
+indexGateway:
+  enabled: false
+frontend:
+  enabled: false
+frontendWorker:
+  enabled: false
+compactor:
+  enabled: false
+distributor:
+  enabled: false
+
+# ============================================================
+# RBAC and Security
+# ============================================================
+serviceAccount:
+  create: true
+rbac:
+  create: true
+podSecurityPolicy:
+  enabled: false
