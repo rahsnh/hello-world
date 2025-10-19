@@ -67,6 +67,7 @@ jobs:
           repository: rahsnh/k8s-apps
           token: ${{ secrets.GITHUB_TOKEN }}
           path: k8s-apps
+          ref: main
 
       # Step 8: Update Helm values file for environment
       - name: Update Helm values file with sed
