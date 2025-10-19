@@ -60,12 +60,12 @@ jobs:
         run: |
           docker push $IMAGE
 
-      # Step 7: Checkout k8s-apps repo
+      # Step 7: Checkout k8s-apps repo (private repo in same org)
       - name: Checkout k8s-apps repo
         uses: actions/checkout@v3
         with:
           repository: rahsnh/k8s-apps
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.GH_PAT }}
           path: k8s-apps
           ref: main
 
