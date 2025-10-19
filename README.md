@@ -1,3 +1,3 @@
 # hello-world
-just another repository
+just another hello-world repository
 version 2.0
