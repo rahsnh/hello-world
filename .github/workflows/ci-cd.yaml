@@ -10,7 +10,7 @@ on:
 env:
   APP_NAME: hello-world
   DOCKER_REGISTRY: rahsnh
-  K8S_REPO: https://github.com/rahsnh/k8s-apps.git
+  K8S_REPO: github.com/rahsnh/k8s-apps.git
 
 jobs:
   build-and-deploy:
@@ -64,7 +64,7 @@ jobs:
       # Step 7: Clone k8s-apps repo
       - name: Clone k8s-apps repo
         run: |
-          git clone $K8S_REPO k8s-apps
+          git clone https://x-access-token:${{ secrets.GITHUB_TOKEN }}@${K8S_REPO} k8s-apps
           cd k8s-apps
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
