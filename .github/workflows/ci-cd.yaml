@@ -10,7 +10,6 @@ on:
 env:
   APP_NAME: hello-world
   DOCKER_REGISTRY: rahsnh
-  K8S_REPO: github.com/rahsnh/k8s-apps.git
 
 jobs:
   build-and-deploy:
@@ -61,13 +60,13 @@ jobs:
         run: |
           docker push $IMAGE
 
-      # Step 7: Clone k8s-apps repo
-      - name: Clone k8s-apps repo
-        run: |
-          git clone https://x-access-token:${{ secrets.GITHUB_TOKEN }}@${K8S_REPO} k8s-apps
-          cd k8s-apps
-          git config user.name "github-actions"
-          git config user.email "github-actions@github.com"
+      # Step 7: Checkout k8s-apps repo
+      - name: Checkout k8s-apps repo
+        uses: actions/checkout@v3
+        with:
+          repository: rahsnh/k8s-apps
+          token: ${{ secrets.GITHUB_TOKEN }}
+          path: k8s-apps
 
       # Step 8: Update Helm values file for environment
       - name: Update Helm values file with sed
@@ -79,6 +78,8 @@ jobs:
       - name: Commit & push updated values
         run: |
           cd k8s-apps
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
           git add .
           git commit -m "Update ${APP_NAME} image to ${IMAGE_TAG} for ${ENV}" || echo "No changes to commit"
           git push
